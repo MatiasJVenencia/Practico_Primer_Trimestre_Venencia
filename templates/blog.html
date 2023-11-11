@@ -1,0 +1,82 @@
+{% extends 'layout.html' %}
+
+{% block title %}blog{% endblock %}
+
+{% block body %}
+<div class="container">
+    {% for entrada in entradas %}
+    <div class="card" style="width: 18rem;" margin="10px" padding="10px" >
+        <div class="card-header">
+            {% for categoria in categorias %}
+            {% if entrada.categoria_id == categoria.id %}
+            Categoria:{{categoria.nombre}}
+            {% endif %}
+            {% endfor %}
+        </div>
+        <div class="card-body">
+        <h5 class="card-title">{{entrada.titulo}}</h5>
+        {% for usuario in usuarios %}
+
+        {% if usuario.id == entrada.usuario_id: %}
+        <p>{{usuario.username}}     {{entrada.fecha}}</p>
+        {% endif %}
+
+        {% endfor %}
+        <p class="card-text">{{entrada.contenido}}</p>
+
+        <h5 class="card_title">Comentarios</h5>
+        </div>
+        <ul class="list-group list-group-flush">
+            {% for comentario in comentarios %}
+
+            {% if comentario.post_id == entrada.id %}
+            
+            {% for usuario in usuarios %}
+            {% if usuario.id == comentario.usuario_id : %}
+        <li class="list-group-item">{{usuario.username}}     {{entrada.fecha}} : {{comentario.contenido}}</li>
+        {% endif %}
+        {% endfor %}
+        {% endif %}
+        {% endfor %}
+        </ul>
+
+    </div>
+    {% endfor %}
+    <h2>Crear nuevo post</h2>
+    <form action="/crear_nuevo_post" method="post">
+        <label for="titulo">Título</label>
+        <input type="text" class="form-control" name="titulo">
+        <label for="entrada">entrada</label>
+        <input type="text" class="form-control" name="entrada">
+        <div class="form-group">
+            <label for="categoria">seleccionar categoría</label>
+            <select type= "text" class="form-control" name="categoria">
+              {% for categoria in categorias %}
+              <option>{{categoria.nombre}}</option>
+              {% endfor %}
+            </select>
+          </div>
+        <button type="submit" class="btn btn-primary">Postear</button>
+        
+    </form>
+    <h2>comentar</h2>
+    <form action="/crear_nuevo_comentario" method="post">
+        <input type="text" class="form-control" name="comentario">
+        <div class="form-group">
+            <label for="entrada">seleccionar posteo</label>
+            <select type= "text" class="form-control" name="entrada">
+              {% for entrada in entradas %}
+              <option>{{entrada.titulo}}</option>
+              {% endfor %}
+            </select>
+          </div>    
+        <button type="submit" class="btn btn-primary">Comentar</button>
+    </form>
+    <a class="btn btn-danger btn-lg" href="/" role="button">Cerrar sesión</a>
+</div>
+  
+  
+  
+
+
+{% endblock %}
