@@ -1,0 +1,29 @@
+{% extends 'layout.html' %}
+
+{% block title %}registrarse{% endblock %}
+{% block body %}
+<div class="container">
+    <form action="/crear_nuevo_usuario" method="post">
+
+        <div class="mb-3">
+            <label for="username" class="form-label">Nombre de usuario</label>
+            <input type="text" class="form-control" name="username" aria-describedby="emailHelp">
+        </div>
+
+        <div class="mb-3">
+            <label for="password" class="form-label">Contraseña</label>
+            <input type="password" class="form-control" name="password">
+        </div>
+
+        <div class="mb-3">
+            <label for="email" class="form-label">Correo Electrónico</label>
+            <input type="text" class="form-control" name="email" aria-describedby="emailHelp">
+
+        </div>
+
+
+        <button type="submit" class="btn btn-primary">Guardar</button>
+        
+    </form>
+</div>
+{% endblock %}
